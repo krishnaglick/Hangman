@@ -80,9 +80,8 @@
             this.labelShowWord.AutoSize = true;
             this.labelShowWord.Location = new System.Drawing.Point(247, 156);
             this.labelShowWord.Name = "labelShowWord";
-            this.labelShowWord.Size = new System.Drawing.Size(43, 13);
+            this.labelShowWord.Size = new System.Drawing.Size(0, 13);
             this.labelShowWord.TabIndex = 4;
-            this.labelShowWord.Text = "______";
             // 
             // labelListOfBadLetters
             // 

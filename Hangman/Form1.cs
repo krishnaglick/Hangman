@@ -14,7 +14,8 @@ namespace Hangman
     {
 
         #region Variables
-        private String[] WordBank = { "POTATO", "CHEESE", "ZOMBIE", "MEMBER" };
+        private String[] WordBank =
+        { "POTATO", "CHEESE", "ZOMBIE", "MEMBER", "TRIUMPH", "ZINGER", "HEY", "HARRIS", "GALAXY", "DOG" };
         private String currentWord;
         private int numOfFails = 0;
         #endregion
@@ -30,6 +31,10 @@ namespace Hangman
         private void pickWord()
         {
             currentWord = WordBank[new Random().Next(WordBank.Length)];
+            labelShowWord.ResetText();
+            for (int i = 0; i < currentWord.Length; i++)
+                labelShowWord.Text += "_";
+            labelWord.Text = "Word (" + currentWord.Length + ")";
         }
 
         #endregion
@@ -51,10 +56,10 @@ namespace Hangman
                 return;
             }
 
-            char testWord = textBoxUserInput.Text.ToUpper().ToCharArray()[0];
+            char testLetter = textBoxUserInput.Text.ToUpper().ToCharArray()[0];
             
             //Don't want the user trying a letter multiple times!
-            if (labelListOfBadLetters.Text.Contains(testWord) || labelShowWord.Text.Contains(testWord))
+            if (labelListOfBadLetters.Text.Contains(testLetter) || labelShowWord.Text.Contains(testLetter))
             {
                 textBoxUserInput.Clear();
                 textBoxUserInput.Focus();
@@ -62,16 +67,16 @@ namespace Hangman
             }
 
             //If the word has what we want
-            if (currentWord.Contains(testWord))
+            if (currentWord.Contains(testLetter))
             {
                 //Look through the word to find all matches
                 for(int i = 0; i < currentWord.Length; i++)
                 {
                     //If a match, replace the character at the index with the correct letter.
-                    if (currentWord[i] == testWord)
+                    if (currentWord[i] == testLetter)
                     {
                         StringBuilder sb = new StringBuilder(labelShowWord.Text);
-                        sb[i] = testWord;
+                        sb[i] = testLetter;
                         labelShowWord.Text = sb.ToString();
                     }
                 }
@@ -81,10 +86,10 @@ namespace Hangman
             {
                 //If the label is blank, set the letter, otherwise
                 if (labelListOfBadLetters.Text == "")
-                    labelListOfBadLetters.Text = testWord.ToString();
+                    labelListOfBadLetters.Text = testLetter.ToString();
                 //Add the letter to the label
                 else
-                    labelListOfBadLetters.Text += ", " + testWord;
+                    labelListOfBadLetters.Text += ", " + testLetter;
                 //Increment the hangman!
                 pictureBoxHangman.ImageLocation = "../../Images/" + ++numOfFails + ".jpg";
             }
@@ -94,19 +99,19 @@ namespace Hangman
             //Check for win condition
             if(labelShowWord.Text == currentWord)
             {
-                resetGame("You won! Play again?", "Win");
+                endGame("You won! Play again?", "Win");
             }
 
             //Check for lose condition
             if(numOfFails > 6)
             {
-                resetGame("You lost! Play again?", "Lose");
+                endGame("You lost! The word was " + currentWord + " Play again?", "Lose");
             }
         }
         #endregion
 
         #region Reset The Game
-        private void resetGame(String message, String header)
+        private void endGame(String message, String header)
         {
             //Create a message box and ask the user to play again.
             DialogResult playAgain = MessageBox.Show(message,header, MessageBoxButtons.YesNo);
