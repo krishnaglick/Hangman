@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace Hangman
 {
@@ -14,8 +15,8 @@ namespace Hangman
     {
 
         #region Variables
-        private String[] WordBank =
-        { "POTATO", "CHEESE", "ZOMBIE", "MEMBER", "TRIUMPH", "ZINGER", "HEY", "HARRIS", "GALAXY", "DOG" };
+        private String[] WordBank = new WebClient().DownloadString("http://docs.oracle.com/javase/tutorial/collections/interfaces/examples/dictionary.txt").ToUpper().Split('\n');
+        //{ "HIPPOPOTAMUS", "CHEESE", "ZOMBIE", "MEMBER", "TRIUMPH", "ZINGER", "HEY", "HARRIS", "GALAXY", "DOG" };
         private String currentWord;
         private int numOfFails = 0;
         #endregion
