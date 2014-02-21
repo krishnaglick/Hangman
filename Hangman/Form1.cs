@@ -16,7 +16,6 @@ namespace Hangman
 
         #region Variables
         private String[] WordBank = new WebClient().DownloadString("http://docs.oracle.com/javase/tutorial/collections/interfaces/examples/dictionary.txt").ToUpper().Split('\n');
-        //{ "HIPPOPOTAMUS", "CHEESE", "ZOMBIE", "MEMBER", "TRIUMPH", "ZINGER", "HEY", "HARRIS", "GALAXY", "DOG" };
         private String currentWord;
         private int numOfFails = 0;
         #endregion
@@ -92,7 +91,7 @@ namespace Hangman
                 else
                     labelListOfBadLetters.Text += ", " + testLetter;
                 //Increment the hangman!
-                pictureBoxHangman.ImageLocation = "../../Images/" + ++numOfFails + ".jpg";
+                pictureBoxHangman.ImageLocation = "./Images/" + ++numOfFails + ".jpg";
             }
             textBoxUserInput.Clear();
             textBoxUserInput.Focus();
